@@ -1,2 +1,11 @@
+
+
+{% if user %}
+
+<button type="button" class="btn btn btn-light">User: {{ user.name }}</button>
+<button type="button" class="btn btn-warning">Logout</button>
+{% else %}
 <a href="{{ url_for('login') }}" class="btn btn-success">Login</a>
 <button type="button" class="btn btn-warning">Register</button>
+
+{% endif %}

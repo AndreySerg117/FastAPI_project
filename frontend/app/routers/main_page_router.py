@@ -35,6 +35,7 @@ async def get_user_info(access_token: str):
         return response.json()
 
 
+
 @router.get('/login')
 @router.post('/login')
 async def login(request: Request, user_email: str = Form(''), password: str = Form('')):
@@ -50,4 +51,5 @@ async def login(request: Request, user_email: str = Form(''), password: str = Fo
 
     context = {'request': request, 'user': user}
     response = templates.TemplateResponse('login.html', context=context)
+    response.set_cookie(key="access_token", value=access_token, httponly=True, max_age=15)
     return response
