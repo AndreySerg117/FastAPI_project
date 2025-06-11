@@ -19,7 +19,7 @@ services:
     ports:
       - "6655:${POSTGRES_PORT}"
     volumes:
-      - postgres_datastorage:/var/lib/postgresgl/data
+      - postgres_datastorage:/var/lib/postgresql/data
     networks:
       - main_network
 

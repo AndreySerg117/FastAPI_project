@@ -4,6 +4,14 @@ from applications.auth.router import router_auth
 from applications.users.router import router_users
 from settings import settings
 
+import sentry_sdk
+
+sentry_sdk.init(
+    dsn="https://e9841f2531bd8b7537b6338c9643b4e9@o4509457148346368.ingest.de.sentry.io/4509478950010960",
+    # Add data like request headers and IP for users,
+    # see https://docs.sentry.io/platforms/python/data-management/data-collected/ for more info
+    send_default_pii=True,
+)
 
 def get_application() -> FastAPI:
     app = FastAPI(root_path="/api", root_path_in_servers=True, debug=settings.DEBUG)
