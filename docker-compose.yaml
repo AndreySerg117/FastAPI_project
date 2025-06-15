@@ -30,12 +30,15 @@ services:
     container_name: backend_api_next
     hostname: backend_api_next
     restart: always
+    depends_on:
+      - notification
     env_file:
       - .env
     volumes:
       - ./backend_api/app:/app
     ports:
       - "9999:9999"
+
     command: |
       sh -c "
       alembic upgrade head && \
@@ -63,6 +66,22 @@ services:
       "
     networks:
       - main_network
+
+  notification:
+    build:
+      dockerfile: Dockerfile
+      context: ./notification_service
+    container_name: notification
+    hostname: notification
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./notification_service/app:/app
+    command: |
+      sh -c "
+      python /app/main.py
+      "
 
   nginx_2:
     image: nginx:alpine
