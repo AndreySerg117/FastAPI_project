@@ -1,22 +1,25 @@
-import uuid
-from datetime import datetime
-from sqlalchemy.dialects.postgresql import ARRAY
+from applications.products.models import Product
 
-from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy.sql import func
 
-from database.base_models import Base
-
-class Product(Base):
-    __tablename__ = "products"
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    created_at: Mapped[datetime] = mapped_column(default=func.now())
-    uuid_data: Mapped[uuid.UUID] = mapped_column(default=uuid.uuid4)
+async def create_product_in_db(product_uuid, title, description, price, main_image, images, session) -> Product:
+    """
+        uuid_data: Mapped[uuid.UUID] = mapped_column(default=uuid.uuid4)
 
     title: Mapped[str] = mapped_column(String(100), index=True, nullable=False)
     description: Mapped[str] = mapped_column(String(1000), index=True, default="")
     price: Mapped[float] = mapped_column(nullable=False)
     main_image: Mapped[str] = mapped_column(nullable=False)
     images: Mapped[list[str]] = mapped_column(ARRAY(String), default=list)
+    """
+    new_product = Product(
+        uuid_data=product_uuid,
+        title=title,
+        description=description,
+        price=price,
+        main_image=main_image,
+        images=images
+    )
+    session.add(new_product)
+
+    await session.commit()
+    return new_product
