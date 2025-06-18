@@ -31,7 +31,7 @@ services:
     hostname: backend_api_next
     restart: always
     depends_on:
-      - notification
+      - notification_next
     env_file:
       - .env
     volumes:
@@ -67,12 +67,12 @@ services:
     networks:
       - main_network
 
-  notification:
+  notification_next:
     build:
       dockerfile: Dockerfile
       context: ./notification_service
-    container_name: notification
-    hostname: notification
+    container_name: notification_next
+    hostname: notification_next
     restart: always
     env_file:
       - .env
