@@ -4,10 +4,12 @@
 
 <div class="container mt-4">
 
+  <div class="row g-4" style="justify-content: space-evenly;">
+
   {% for product in products %}
 
 
- <div class="card" style="width: 18rem;">
+  <div class="card" style="width: 18rem;">
     <img src="{{ product.main_image }}" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title">{{ product.title }}</h5>
@@ -19,4 +21,5 @@
 
   {% endfor %}
 
+</div>
 </div>
