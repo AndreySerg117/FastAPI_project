@@ -1,5 +1,6 @@
 import aioboto3
-from fastapi import APIRouter, Body, UploadFile
+from fastapi import UploadFile
+
 from settings import settings
 
 
@@ -10,11 +11,11 @@ class S3Storage:
     async def get_s3_session(self):
         session = aioboto3.Session()
         async with session.client(
-            's3',
-            endpoint_url=settings.ENDPOINT,
-            aws_access_key_id=settings.ACCESS_KEY,
-            aws_secret_access_key=settings.SECRET_KEY,
-            region_name='EEUR'
+                 's3',
+                 endpoint_url=settings.ENDPOINT,
+                 aws_access_key_id=settings.ACCESS_KEY,
+                 aws_secret_access_key=settings.SECRET_KEY,
+                 region_name='EEUR'
         ) as s3:
             yield s3
 
