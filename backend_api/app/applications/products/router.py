@@ -3,7 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Body, UploadFile, Depends, HTTPException, status
 import uuid
 
-from applications.auth.security import admin_required
+from applications.auth.security import admin_required, get_current_user
 from applications.products.crud import create_product_in_db, get_products_data, get_product_by_pk
 from applications.products.schemas import ProductSchema, SearchParamsSchema
 from applications.users.models import User
@@ -15,6 +15,15 @@ from applications.users.schemas import BaseUserInfo, RegisterUserFields
 from database.session_dependencies import get_async_session
 
 products_router = APIRouter()
+cart_router = APIRouter()
+
+
+@cart_router.get("/")
+async def get_current_cart(
+    user: User = Depends(get_current_user),
+    session: AsyncSession = Depends(get_async_session),
+):
+    pass
 
 
 @products_router.post('/',
